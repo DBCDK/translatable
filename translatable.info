@@ -1,0 +1,4 @@
+name = Translatable
+description = Defines a render array type for translations using the t() function.
+core = 7.x
+version = 7.x-dev
