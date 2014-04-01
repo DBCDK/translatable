@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implements hook_element_info().
+ */
+function translatable_element_info() {
+  return array(
+    'translatable' => array(
+      '#theme' => 'translatable',
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Translatable render array has three parameters:
+ *   translate: which is the string to translate.
+ *   args: the list of arguments to substitue in the string.
+ *   options: the option list which can be set for the t() function.
+ */
+function translatable_theme() {
+  return array(
+    'translatable' => array(
+      'variables' => array(
+        'translate' => '',
+        'args' => array(),
+        'options' => array()
+      ),
+    ),
+  );
+}
+
+/**
+ * Theme function for render arrays of type translatable.
+ *
+ * @param $variables - an array of arguments used for calling the t() function.
+ * @return string
+ */
+function theme_translatable($variables) {
+  return t($variables['translate'], $variables['args'], $variables['options']);
+}
