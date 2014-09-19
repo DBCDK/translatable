@@ -1,4 +1,4 @@
 name = Translatable
-description = Defines a render array type for translations using the t() function.
+description = Defines a render array type for translations using the t() function. Also defines #pre_render functions for making links translatable.
 core = 7.x
 version = 7.x-1.0
