@@ -40,3 +40,35 @@ function translatable_theme() {
 function theme_translatable($variables) {
   return t($variables['translate'], $variables['args'], $variables['options']);
 }
+
+/**
+ * Implements hook_elemenent_info_alter().
+ *
+ * Modifies #pre_render for links to make links translatable as part of
+ * rendering process.
+ */
+function translatable_element_info_alter(&$type) {
+  if (isset($type['link']) && isset($type['link']['#pre_render'])) {
+    array_unshift($type['link']['#pre_render'], 'translatable_pre_render_title');
+  }
+}
+
+/**
+ * #pre_render callback to render title of an element into a string.
+ *
+ * Doing so during pre_render gives modules a chance to alter the link parts.
+ *
+ * @param $element
+ *   A structured array with a key #title:
+ *   - #title: The title as text or optionally a render array containing:
+ *       #string: text which is passed as argument to t().
+ *       #args: optional array which is passed as argument to t().
+ *       #options: optional array which is passed as argument to t().
+ *
+ * @return
+ *   The passed-in elements containing a title rendered as a translated string.
+ */
+function translatable_pre_render_title($element) {
+  $element['#title'] = render($element['#title']);
+  return $element;
+}
